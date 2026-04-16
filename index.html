@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atilla Baykal | Finansal Stratejist & VIP Portföy Yönetimi</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #0088cc; /* Telegram Mavisi */
+            --primary-dark: #006699;
+            --gold: #d4af37;
+            --gold-light: #f1c40f;
+            --bg-dark: #020617;
+            --bg-card: #0f172a;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass: rgba(15, 23, 42, 0.95);
+            --telegram-color: #229ED9;
+        }
+
+        /* Temel Ayarlar */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-dark); color: var(--text-light); line-height: 1.8; overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 25px; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+        /* --- ÜST DUYURU BANDI --- */
+        .announcement-bar {
+            background: linear-gradient(90deg, #b91c1c, #ea580c);
+            color: white; padding: 12px 0; text-align: center;
+            font-size: 0.9rem; font-weight: 800; position: fixed;
+            width: 100%; top: 0; z-index: 2100; letter-spacing: 0.5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* --- NAVİGASYON --- */
+        nav {
+            background: var(--glass); backdrop-filter: blur(15px);
+            position: fixed; width: 100%; top: 44px; z-index: 2000;
+            padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; letter-spacing: -0.5px; }
+        .logo span { color: var(--primary); }
+        nav ul { display: flex; list-style: none; gap: 25px; align-items: center; }
+        nav ul li a { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); }
+        nav ul li a:hover { color: var(--primary); }
+        .nav-cta { background: var(--primary); color: white !important; padding: 10px 22px; border-radius: 50px; animation: pulse-small 2s infinite; }
+
+        /* --- DİNAMİK SLIDER --- */
+        .slider-container { position: relative; height: 100vh; width: 100%; overflow: hidden; margin-top: 44px; }
+        .slide {
+            position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease-in-out;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            background-size: cover; background-position: center;
+        }
+        .slide.active { opacity: 1; }
+        .slide::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.75); }
+        .slide-content { position: relative; z-index: 10; max-width: 950px; padding: 0 20px; }
+        .slide-content h2 { font-family: 'Playfair Display', serif; font-size: 4.8rem; margin-bottom: 25px; line-height: 1.1; }
+        .slide-content p { font-size: 1.4rem; margin-bottom: 40px; color: var(--text-muted); font-weight: 300; }
+
+        /* --- GENEL BUTON STİLİ --- */
+        .btn {
+            display: inline-flex; align-items: center; gap: 15px; padding: 20px 50px;
+            border-radius: 50px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+            transition: 0.4s; cursor: pointer; border: none;
+        }
+        .btn-tg { background: var(--telegram-color); color: white; box-shadow: 0 10px 20px rgba(34, 158, 217, 0.3); }
+        .btn-tg:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(34, 158, 217, 0.5); }
+
+        /* --- VIP GRUP (PREMIUM TASARIM) --- */
+        .vip-section { padding: 120px 0; background: linear-gradient(180deg, #020617 0%, #0f172a 100%); }
+        .vip-card {
+            background: #111827; border: 2px solid var(--gold); border-radius: 40px;
+            padding: 80px 60px; max-width: 1000px; margin: 0 auto; position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+        }
+        .vip-card::before { content: 'VIP'; position: absolute; top: 10px; right: 30px; font-size: 10rem; font-weight: 900; color: rgba(212, 175, 55, 0.03); }
+        .vip-badge { background: var(--gold); color: #000; padding: 8px 25px; border-radius: 50px; font-weight: 900; font-size: 0.9rem; margin-bottom: 30px; display: inline-block; }
+        .vip-header { text-align: center; margin-bottom: 50px; }
+        .vip-header h2 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--gold-light); }
+        .vip-rules { list-style: none; margin: 40px 0; }
+        .vip-rules li {
+            background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px;
+            margin-bottom: 20px; display: flex; align-items: flex-start; gap: 20px;
+            border: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
+        }
+        .vip-rules li:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.05); }
+        .vip-rules i { color: var(--gold-light); font-size: 1.8rem; margin-top: 5px; }
+        .vip-rules strong { color: var(--gold-light); display: block; font-size: 1.2rem; margin-bottom: 5px; }
+        .vip-target { background: rgba(212, 175, 55, 0.15); padding: 30px; border-radius: 20px; text-align: center; margin: 40px 0; border: 1px dashed var(--gold); }
+
+        /* --- HİKAYEM (DETAYLI) --- */
+        section { padding: 140px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 3.5rem; text-align: center; margin-bottom: 70px; }
+        .section-title span { color: var(--primary); }
+        .about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 80px; align-items: center; }
+        .about-text p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 25px; text-align: justify; }
+        .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
+        .stat-card { background: var(--bg-card); padding: 30px; border-radius: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+        .stat-card h3 { font-size: 2.5rem; color: var(--primary); margin-bottom: 5px; }
+
+        /* --- UZMANLIK ALANLARI (6 KART) --- */
+        .grid-6 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        .exp-card {
+            background: var(--bg-card); padding: 50px; border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.05); transition: 0.4s;
+        }
+        .exp-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .exp-card i { font-size: 3rem; color: var(--primary); margin-bottom: 30px; }
+        .exp-card h4 { font-size: 1.5rem; margin-bottom: 20px; }
+        .exp-card ul { list-style: none; color: var(--text-muted); font-size: 1rem; }
+        .exp-card ul li { margin-bottom: 12px; display: flex; gap: 10px; }
+        .exp-card ul li::before { content: '◈'; color: var(--primary); }
+
+        /* --- LİSANSLAR & YETKİNLİK --- */
+        .bento-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; }
+        .bento-item { background: var(--bg-card); padding: 50px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.05); }
+        .license-box { background: rgba(0,0,0,0.3); padding: 25px; border-radius: 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 25px; border-left: 5px solid var(--gold); }
+        .license-box i { font-size: 2rem; color: var(--gold); }
+
+        /* --- SIK SORULAN SORULAR --- */
+        .faq-wrap { max-width: 900px; margin: 0 auto; }
+        details { background: var(--bg-card); padding: 25px; border-radius: 20px; margin-bottom: 15px; cursor: pointer; transition: 0.3s; border: 1px solid transparent; }
+        details:hover { border-color: var(--primary); }
+        summary { font-weight: 700; font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center; }
+        details p { padding-top: 20px; color: var(--text-muted); font-size: 1.1rem; }
+
+        /* --- FOOTER & SOSYAL MEDYA --- */
+        footer { padding: 100px 0; background: #010409; border-top: 1px solid rgba(255,255,255,0.05); }
+        .social-flex { display: flex; justify-content: center; gap: 25px; margin-bottom: 50px; }
+        .s-link {
+            width: 70px; height: 70px; background: #0f172a; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; color: white; transition: 0.4s; border: 1px solid rgba(255,255,255,0.1);
+        }
+        .s-link:hover { transform: rotate(360deg) scale(1.1); color: white; }
+        .s-tg:hover { background: #229ED9; }
+        .s-tw:hover { background: #000; }
+        .s-mail:hover { background: #ea4335; }
+
+        /* --- SABİT ELEMENTLER --- */
+        .floating-tg {
+            position: fixed; bottom: 40px; right: 40px; z-index: 9999;
+            width: 80px; height: 80px; background: var(--telegram-color);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 35px; box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            animation: pulse-tg 2s infinite;
+        }
+
+        /* --- ANİMASYONLAR --- */
+        @keyframes pulse-tg { 0% { box-shadow: 0 0 0 0 rgba(34, 158, 217, 0.7); } 70% { box-shadow: 0 0 0 25px rgba(34, 158, 217, 0); } 100% { box-shadow: 0 0 0 0 rgba(34, 158, 217, 0); } }
+        @keyframes pulse-small { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        @media (max-width: 992px) {
+            .about-grid, .bento-grid { grid-template-columns: 1fr; }
+            .slide-content h2 { font-size: 3rem; }
+            .section-title { font-size: 2.5rem; }
+            nav ul { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="announcement-bar">
+        <i class="fas fa-fire-alt"></i> SON 24 SAATTE GRUPTA PAYLAŞILAN SİNYALLERDEN TOPLAM <strong>+87.4% NET KAZANÇ</strong> SAĞLANDI!
+    </div>
+
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">ATİLLA <span>BAYKAL</span></a>
+            <ul>
+                <li><a href="#hikayem">Hikayem</a></li>
+                <li><a href="#vip">VIP Model</a></li>
+                <li><a href="#uzmanlik">Uzmanlık</a></li>
+                <li><a href="#lisanslar">Lisanslar</a></li>
+                <li><a href="#sss">S.S.S.</a></li>
+                <li><a href="https://t.me/+mI0v2HqaBBo5NWYx" class="nav-cta" target="_blank">ÜCRETSİZ GRUP</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <a href="https://t.me/+mI0v2HqaBBo5NWYx" class="floating-tg" target="_blank" title="Telegram'a Katıl">
+        <i class="fab fa-telegram-plane"></i>
+    </a>
+
+    <div class="slider-container">
+        <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1611974717482-962553028e9a?auto=format&fit=crop&w=1920&q=80');">
+            <div class="slide-content">
+                <h2>Zenginlik Bir Tercihtir.</h2>
+                <p>Türkiye'nin en şeffaf ve başarılı finansal topluluğuna katılın. Ücret ödemeyin, kârı paylaşın.</p>
+                <a href="https://t.me/+mI0v2HqaBBo5NWYx" class="btn btn-tg" target="_blank">
+                    <i class="fab fa-telegram-plane"></i> ÜCRETSİZ GRUBA GİR
+                </a>
+            </div>
+        </div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1920&q=80');">
+            <div class="slide-content">
+                <h2>Veriyle Yönet, Duyguyu Bırak.</h2>
+                <p>Kendi geliştirdiğim algoritmalarla %78'in üzerinde başarı oranıyla piyasaya yön veriyoruz.</p>
+                <a href="#vip" class="btn btn-tg" style="background: var(--gold); color: black;">
+                    <i class="fas fa-crown"></i> VIP ŞARTLARI İNCELE
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <section id="hikayem">
+        <div class="container">
+            <h2 class="section-title">Bir Vizyonun <span>Doğuşu</span></h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>Antalya’nın fakir bir mahallesinde, kışın soba dumanının duvarlara sindiği, elektriklerin sık sık kesildiği o mütevazı evde başladı her şey. Babamın eve getirdiği gazetelerin o karmaşık ekonomi sayfaları, benim için çocukluk oyunlarından daha büyüleyiciydi. Paranın sadece bir kağıt parçası değil, bir matematiksel algoritma olduğunu o yıllarda keşfettim.</p>
+                    <p>Akdeniz Üniversitesi Ekonomi ve Finans bölümünü onur derecesiyle bitirdiğimde, piyasadaki "şans" faktörünü yok etmeye yemin etmiştim. 18 yaşımda girdiğim Borsa İstanbul koridorlarından, bugün küresel piyasalarda algoritma koşturan bir stratejiste dönüştüm.</p>
+                    <p>8 yıllık tecrübem bana tek bir şeyi öğretti: <strong>Bilgi paylaştıkça, kâr ise birlikte çalıştıkça artar.</strong> Bu yüzden kimseden ön ödeme almıyorum. Sizin başarınız benim referansımdır.</p>
+                    
+                    <div class="about-stats">
+                        <div class="stat-card"><h3>%78+</h3><p>Sinyal Başarısı</p></div>
+                        <div class="stat-card"><h3>8 Yıl</h3><p>Piyasa Tecrübesi</p></div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80" style="width: 100%; border-radius: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.4);" alt="Atilla Baykal Profile">
+                    <p style="margin-top: 25px; font-family: 'Playfair Display'; font-style: italic; font-size: 1.4rem; color: var(--gold-light);">“Başarı, risk alanların ve sabırla çalışanların hakkıdır.”</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="vip" class="vip-section">
+        <div class="container">
+            <div class="vip-card">
+                <div class="vip-header">
+                    <span class="vip-badge">ÖZEL DAVETİYE</span>
+                    <h2>VIP Grup & Şeffaf Kazanç Modeli</h2>
+                    <p style="margin-top: 20px; color: var(--text-muted); font-size: 1.2rem;">"VIP Gruba katılmak istediğinizi görüyorum. Sistemimizi en basit haliyle özetliyorum:"</p>
+                </div>
+
+                <ul class="vip-rules">
+                    <li>
+                        <i class="fas fa-unlock-alt"></i>
+                        <div>
+                            <strong>Giriş Ücreti Yok</strong>
+                            Gruba dahil olmak için bir kuruş bile ödemiyorsun. Bizde "katılım ücreti" veya "VIP üyelik bedeli" gibi kavramlar yoktur.
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-handshake"></i>
+                        <div>
+                            <strong>Sadece Kâr Ortaklığı</strong>
+                            Beraber yaptığımız işlemlerden, kazancının %5’ini aylık olarak her ayın 1'inde alıyorum. Ben kazanmanıza vesile olursam kazanırım.
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-user-shield"></i>
+                        <div>
+                            <strong>Zarar Sorumluluğu</strong>
+                            Eğer bir işlemde zarar edersek, ben seni tekrar artıya çıkarana kadar tek kuruş komisyon istemiyorum. Sizin cebiniz eksideyken benim cebime para girmesi söz konusu bile olamaz.
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="vip-target">
+                    <h3 style="color: white; font-size: 1.8rem;">HEDEFİMİZ: Aylık Ortalama <span style="color:var(--gold-light);">%40 Büyüme.</span> 📈</h3>
+                </div>
+
+                <div style="text-align: center;">
+                    <p style="margin-bottom: 30px; font-weight: 500;">Bu şartlar senin için uygunsa profesyonel ekibimize katılabilirsin:</p>
+                    <a href="https://t.me/atillabaykal" class="btn" style="background: var(--gold); color: black;" target="_blank">
+                        <i class="fab fa-telegram-plane"></i> VIP KATILIM İÇİN BANA YAZ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="uzmanlik">
+        <div class="container">
+            <h2 class="section-title">Profesyonel <span>Uzmanlıklar</span></h2>
+            <div class="grid-6">
+                <div class="exp-card">
+                    <i class="fas fa-robot"></i>
+                    <h4>Algoritmik Trade</h4>
+                    <ul>
+                        <li>Python & Pine Script Botları</li>
+                        <li>Duygusuz Emir İletimi</li>
+                        <li>Backtest Optimizasyonları</li>
+                    </ul>
+                </div>
+                <div class="exp-card">
+                    <i class="fas fa-chart-area"></i>
+                    <h4>Price Action Analizi</h4>
+                    <ul>
+                        <li>Kurumsal Emir Akışı takibi</li>
+                        <li>Likitide Bölgeleri Analizi</li>
+                        <li>Market Yapısı (MSB) Takibi</li>
+                    </ul>
+                </div>
+                <div class="exp-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>Risk Yönetimi</h4>
+                    <ul>
+                        <li>Kelly Criterion Uygulaması</li>
+                        <li>Drawdown Kontrol Sistemleri</li>
+                        <li>Portföy Çeşitlendirme</li>
+                    </ul>
+                </div>
+                <div class="exp-card">
+                    <i class="fas fa-coins"></i>
+                    <h4>Kripto & On-Chain</h4>
+                    <ul>
+                        <li>Balina Hareketleri Takibi</li>
+                        <li>Yeni Proje Fundamental Analiz</li>
+                        <li>Arbitraj Fırsatları</li>
+                    </ul>
+                </div>
+                <div class="exp-card">
+                    <i class="fas fa-globe-americas"></i>
+                    <h4>Global Makro</h4>
+                    <ul>
+                        <li>FED & Faiz Kararları Analizi</li>
+                        <li>Enflasyon & Büyüme Verileri</li>
+                        <li>Global Likitide Akışı</li>
+                    </ul>
+                </div>
+                <div class="exp-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h4>Mentorluk</h4>
+                    <ul>
+                        <li>Psikolojik Disiplin Eğitimi</li>
+                        <li>Kendi Stratejini Kurma</li>
+                        <li>Birebir Portföy Analizi</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="lisanslar">
+        <div class="container">
+            <div class="bento-grid">
+                <div class="bento-item">
+                    <h2 style="font-family: 'Playfair Display'; font-size: 2.5rem; margin-bottom: 30px;">Resmi Lisanslar</h2>
+                    <div class="license-box">
+                        <i class="fas fa-certificate"></i>
+                        <div><strong>SPK Düzey 3 Lisansı</strong><p>Sermaye Piyasası Faaliyetleri İleri Düzey Yetkinliği</p></div>
+                    </div>
+                    <div class="license-box">
+                        <i class="fas fa-certificate"></i>
+                        <div><strong>SPK Türev Araçlar</strong><p>VİOP ve Kaldıraçlı Piyasalar Uzmanlık Belgesi</p></div>
+                    </div>
+                    <div class="license-box">
+                        <i class="fas fa-certificate"></i>
+                        <div><strong>Yatırım Danışmanlığı Belgesi</strong><p>Profesyonel Portföy Yönetimi Yetkisi</p></div>
+                    </div>
+                </div>
+                <div class="bento-item" style="background: linear-gradient(145deg, #1e293b, #020617);">
+                    <h3 style="margin-bottom: 25px;">Global Yetkinlik</h3>
+                    <div style="margin-bottom: 25px;">
+                        <p>İngilizce (C1 - Akademik)</p>
+                        <div style="height: 6px; background: #222; border-radius: 10px; margin-top: 8px;"><div style="width: 92%; height: 100%; background: var(--primary); border-radius: 10px;"></div></div>
+                    </div>
+                    <div style="margin-bottom: 25px;">
+                        <p>Almanca (B2 - Profesyonel)</p>
+                        <div style="height: 6px; background: #222; border-radius: 10px; margin-top: 8px;"><div style="width: 65%; height: 100%; background: var(--gold); border-radius: 10px;"></div></div>
+                    </div>
+                    <div style="margin-bottom: 25px;">
+                        <p>Python (Veri Bilimi)</p>
+                        <div style="height: 6px; background: #222; border-radius: 10px; margin-top: 8px;"><div style="width: 85%; height: 100%; background: var(--primary); border-radius: 10px;"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sss">
+        <div class="container">
+            <h2 class="section-title">Sıkça Sorulan <span>Sorular</span></h2>
+            <div class="faq-wrap">
+                <details>
+                    <summary>VIP gruba girmek için minimum sermaye nedir?</summary>
+                    <p>VIP grubumuzda stratejik yönetim yapıldığı için minimum 1000$ ve üzeri bir sermaye ile katılmanız önerilir, ancak üst limit yoktur.</p>
+                </details>
+                <details>
+                    <summary>Neden ön ödeme veya üyelik ücreti almıyorsunuz?</summary>
+                    <p>Çünkü ben kendi stratejilerime güveniyorum. Eğer siz kazanırsanız ben de kazanırım. Bu model bizi aynı gemiye bindirir ve güveni artırır.</p>
+                </details>
+                <details>
+                    <summary>Sinyalleri hangi saatlerde paylaşıyorsunuz?</summary>
+                    <p>Piyasalar 7/24 canlıdır. Algoritmalarımız fırsat gördüğü anda (gece veya gündüz) Telegram üzerinden bildirim gönderilir.</p>
+                </details>
+                <details>
+                    <summary>Zarar durumunda %5 komisyon ödeniyor mu?</summary>
+                    <p>Kesinlikle hayır. Kâr ortaklığı modeli sadece net kâr üzerinden çalışır. Eğer kasa eksideyse, ben sizi tekrar artıya geçirene kadar komisyon talep etmem.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <footer id="iletisim">
+        <div class="container">
+            <h2 class="section-title">Bana <span>Ulaşın</span></h2>
+            <div class="social-flex">
+                <a href="https://t.me/+mI0v2HqaBBo5NWYx" target="_blank" class="s-link s-tg" title="Ücretsiz Grup"><i class="fab fa-telegram-plane"></i></a>
+                <a href="https://t.me/atillabaykal" target="_blank" class="s-link s-tg" style="background: var(--gold);" title="VIP İletişim"><i class="fas fa-crown"></i></a>
+                <a href="https://x.com/atillbaykal" target="_blank" class="s-link s-tw" title="Twitter"><i class="fab fa-x-twitter"></i></a>
+                <a href="mailto:atillabaykal0066@gmail.com" class="s-link s-mail" title="E-Posta"><i class="fas fa-envelope"></i></a>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <p style="font-size: 1.1rem; font-weight: 700;">Atilla Baykal &copy; 2026</p>
+                <p style="opacity: 0.3; font-size: 0.75rem; margin-top: 15px; max-width: 800px; margin-inline: auto;">
+                    UYARI: Bu sitede yer alan tüm içerikler, analizler ve sinyaller sadece eğitim ve bilgilendirme amaçlıdır. Hiçbir içerik kesinlikle yatırım tavsiyesi niteliği taşımamaktadır. Finansal piyasalar yüksek risk içerir.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Slider Fonksiyonu
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        setInterval(nextSlide, 5000);
+
+        // Navbar Scroll Efekti
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.padding = '12px 0';
+                nav.style.background = 'rgba(2, 6, 23, 0.98)';
+            } else {
+                nav.style.padding = '18px 0';
+                nav.style.background = 'rgba(15, 23, 42, 0.95)';
+            }
+        });
+    </script>
+
+</body>
+</html>
